@@ -29,6 +29,9 @@ public class MainActivity extends AppCompatActivity {
     Button submit, clear, exit;
     RadioButton cloudsLow, cloudsHigh, temperatureNormal, temperatureHot, windStrong, windWeak;
     EditText out;
+    String ans="";
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,44 +88,48 @@ public class MainActivity extends AppCompatActivity {
 
             // หลังจากตรวจสอบ RadioButton แล้ว ตรวจสอบค่าของ TextView output เพื่อดูว่ามีการแจ้งเตือนหรือไม่
             // หากมี RadioButton ถูกเลือก จะตรวจสอบค่าที่อยู่บน output เพื่อดูว่ามีข้อความแจ้งเตือนอะไรบน output หากมีข้อความแจ้งเตือนใด ๆ
-            // จะเทียบด้วย equals ถ้ามีข้อความแจ้งเตือนอยู่ เช่น "ลืมติ๊กซักช่อง" หรือ "กรุณาเลือกเมฆด้วย" จะจบการทำงานทันทีด้วยคำสั่ง return
 
-            if (output.getText().toString().equals("กรุณาเลือกให้ครบทุกช่อง") || output.getText().toString().equals("กรุณาเลือกเมฆฝนด้วย")
-                    || output.getText().toString().equals("กรุณาเลือกอุณหภูมิด้วย") || output.getText().toString().equals("กรุณาเลือกแรงลมด้วย")
-                    || output.getText().toString().equals("กรุณาเลือกอุณหภูมิและแรงลมด้วย") || output.getText().toString().equals("กรุณาเลือกเมฆฝนและแรงลมด้วย")
-                    || output.getText().toString().equals("กรุณาเลือกเมฆฝนและอุณหภูมิด้วย")) {
+            //หากตัวแปร ans ไม่ว่าง (มีข้อความอยู่) ให้ทำการ return;
+            //ถ้า ans มีข้อความอยู่แล้วในตัวแปรนี้ โค้ดที่เหลือในเมทอดที่มีบรรทัดนี้จะไม่ถูกทำงานและโปรแกรมจะออกจากเมทอดนี้ทันที
+            if (!ans.isEmpty()) {
                 return;
             }
+
             // หากไม่มีข้อความแจ้งเตือนอยู่บน output จะดำเนินการตรวจสอบเงื่อนไขต่าง ๆ เพื่อกำหนดข้อความที่จะแสดงบน output
             // ตรวจสอบเงื่อนไขต่าง ๆ เพื่อกำหนดข้อความที่จะแสดงบน TextView output
             if (cloudsGroup.isCloudsHighChecked()) {
                 if (temperatureGroup.isTemperatureHotChecked()) {
                     if (windGroup.isWindWeakChecked()) {
-                        output.setText("ฝนตก");
+                        ans = "ฝนตก";
                     } else {
-                        output.setText("ฝนไม่ตก");
+                        ans = "ฝนไม่ตก";
                     }
                 } else {
-                    output.setText("ฝนไม่ตก");
+                    ans = "ฝนไม่ตก";
                 }
             } else {
-                output.setText("ฝนไม่ตก");
+                ans = "ฝนไม่ตก";
             }
+        output.setText(ans);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-        //การแจ้งเตือน
+
+
+    // การแจ้งเตือน
     public void checkIfAnyRadioButtonSelected(CloudsGroup cloudsGroup, TemperatureGroup temperatureGroup, WindGroup windGroup) {
         boolean anyRadioButtonSelected = cloudsGroup.isCloudsLowChecked() || cloudsGroup.isCloudsHighChecked() ||
                 temperatureGroup.isTemperatureNormalChecked() || temperatureGroup.isTemperatureHotChecked() ||
                 windGroup.isWindStrongChecked() || windGroup.isWindWeakChecked();
 
         if (!anyRadioButtonSelected) {
-            output.setText("กรุณาเลือกให้ครบทุกช่อง");
-            //หากมี RadioButton ใด ๆ ถูกเลือก (ค่า anyRadioButtonSelected เป็น true) จะล้างข้อความที่อาจเคยแสดงไว้ก่อนหน้า
+            ans = "กรุณาเลือกให้ครบทุกช่อง";
+
+            // หากมี RadioButton ใด ๆ ถูกเลือก (ค่า anyRadioButtonSelected เป็น true) จะล้างข้อความที่อาจเคยแสดงไว้ก่อนหน้า
         } else {
-            output.setText(""); // เราจะล้างข้อความที่อาจเคยแสดงไว้ก่อนหน้า
+            ans = ""; // เราจะล้างข้อความที่อาจเคยแสดงไว้ก่อนหน้า
         }
 
         boolean cloudsSelected = cloudsGroup.isCloudsLowChecked() || cloudsGroup.isCloudsHighChecked();
@@ -130,20 +137,22 @@ public class MainActivity extends AppCompatActivity {
         boolean windSelected = windGroup.isWindWeakChecked() || windGroup.isWindStrongChecked();
 
         if (cloudsSelected && !temperatureSelected && !windSelected) {
-            output.setText("กรุณาเลือกอุณหภูมิและแรงลมด้วย");
-        }else if (!cloudsSelected && temperatureSelected && !windSelected) {
-            output.setText("กรุณาเลือกเมฆฝนและแรงลมด้วย");
+            ans = "กรุณาเลือกอุณหภูมิและแรงลมด้วย";
+        } else if (!cloudsSelected && temperatureSelected && !windSelected) {
+            ans = "กรุณาเลือกเมฆฝนและแรงลมด้วย";
         } else if (!cloudsSelected && !temperatureSelected && windSelected) {
-            output.setText("กรุณาเลือกเมฆฝนและอุณหภูมิด้วย");
-        }else if (!cloudsSelected && temperatureSelected && windSelected) {
-            output.setText("กรุณาเลือกเมฆฝนด้วย");
-        }else if (cloudsSelected && !temperatureSelected && windSelected) {
-            output.setText("กรุณาเลือกอุณหภูมิด้วย");
-        }else if (cloudsSelected && temperatureSelected && !windSelected) {
-            output.setText("กรุณาเลือกแรงลมด้วย");
+            ans = "กรุณาเลือกเมฆฝนและอุณหภูมิด้วย";
+        } else if (!cloudsSelected && temperatureSelected && windSelected) {
+            ans = "กรุณาเลือกเมฆฝนด้วย";
+        } else if (cloudsSelected && !temperatureSelected && windSelected) {
+            ans = "กรุณาเลือกอุณหภูมิด้วย";
+        } else if (cloudsSelected && temperatureSelected && !windSelected) {
+            ans = "กรุณาเลือกแรงลมด้วย";
         }
+        output.setText(ans);
     }
-        //เคลียปุ่มทั้งหมด ด้วย id xml
+
+    //เคลียปุ่มทั้งหมด ด้วย id xml
     public void clear() {
         cloudsLow.setChecked(false);
         cloudsHigh.setChecked(false);
@@ -158,66 +167,4 @@ public class MainActivity extends AppCompatActivity {
         if (out.getText().toString().equals("99")) {
             finish(); // ปิดแอปพลิเคชัน
         }
-    }
-
-    // สร้าง Class แต่ละกลุ่ม เพื่อให้ Main Class เรียกใ้ช้งานง่ายๆ และเป็นสัดเป็นส่วน
-    public class CloudsGroup {
-        private RadioButton cloudsLow;
-        private RadioButton cloudsHigh;
-
-        // นี่คือ Constructor method
-        //ใช้เพื่อสร้างอ็อบเจ็กต์ของคลาสในหน่วยความจำและกำหนดค่าเริ่มต้นให้กับตัวแปรของคลาสและถูกเรียกโดยอัตโนมัติเมื่อสร้างอ็อบเจ็กต์ใหม่ของคลาส
-        public CloudsGroup(RadioButton low, RadioButton high) {
-            this.cloudsLow = low;
-            this.cloudsHigh = high;
-        }
-
-        public boolean isCloudsLowChecked() {
-            return cloudsLow.isChecked(); // จะคืนค่า cloudsLow ถูกเลือกหรือไม่ ถ้า cloudsLow ถูกเลือก isCloudsLowChecked() จะคืนค่า true
-        }                                 // และถ้าไม่ถูกเลือกจะคืนค่า false
-
-        public boolean isCloudsHighChecked() {
-            return cloudsHigh.isChecked();
-        }
-    }
-
-    public class TemperatureGroup {
-        private RadioButton temperatureNormal;
-        private RadioButton temperatureHot;
-
-        // นี่คือ Constructor method
-        public TemperatureGroup(RadioButton normal, RadioButton hot) {
-            this.temperatureNormal = normal;
-            this.temperatureHot = hot;
-        }
-
-        public boolean isTemperatureNormalChecked() {
-            return temperatureNormal.isChecked();
-        }
-
-        public boolean isTemperatureHotChecked() {
-            return temperatureHot.isChecked();
-        }
-    }
-
-    public class WindGroup {
-        private RadioButton windWeak;
-        private RadioButton windStrong;
-
-        // นี่คือ Constructor method
-        //ใช้เพื่อสร้างอ็อบเจ็กต์ของคลาสในหน่วยความจำและกำหนดค่าเริ่มต้นให้กับตัวแปรของคลาสและถูกเรียกโดยอัตโนมัติเมื่อสร้างอ็อบเจ็กต์ใหม่ของคลาส
-        public   WindGroup(RadioButton weak, RadioButton strong) {
-            this.windWeak = weak;
-            this.windStrong = strong;
-        }
-
-        // method ตรวจสอบว่าปุ่มความแรงของลมอ่อนถูกเลือกหรือไม่
-        public boolean isWindWeakChecked() {
-            return windWeak.isChecked();
-        }
-        // method ตรวจสอบว่าปุ่ม ความแรงของลมอ่อนพัดแรง ถูกเลือกหรือไม่
-        public boolean  isWindStrongChecked() {
-            return windStrong.isChecked();
-        }
-    }
-}
+    }}
