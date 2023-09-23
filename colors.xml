@@ -1,0 +1,9 @@
+<resources>
+    <color name="background_color">#E5CFF7</color>
+    <color name="card_background_color">#713ABE</color>
+    <color name="text_color">#FFFFFF</color>
+    <color name="button_background_color">#354EDA</color>
+    <color name="text_hint_color">#7D7C7C</color>
+    <color name="black">#FF000000</color>
+
+</resources>
