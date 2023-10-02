@@ -1,6 +1,7 @@
 # ProjectAndroidStudio
 สวัสดีครับทุกคน ยินดีตั้อนรับเข้าสู่ โปรเจกต์ Android ของเรา!
-MainActivity.java คิือ Class การพยากรณ์ มีหน้าที่เรียกใช้ Class อื่นๆ 
+
+MainActivity.java คือ Class การพยากรณ์ มีหน้าที่เรียกใช้ Class อื่นๆ 
 
 CloudsGroup.java คือ Class เก็บข้อมูลกลุ่มเมฆ มีหน้าที่เก็บข้อมูล และให้ Class พยากรณ์เรียกใช้
 
