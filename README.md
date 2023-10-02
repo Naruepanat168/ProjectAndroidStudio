@@ -4,4 +4,5 @@
 Link ทั้ง Folder Project
 
 https://drive.google.com/drive/folders/1vO1quSTMqK_zdAaAJsolzI2wDK1GfCBT?usp=sharing
-![Uploading Screenshot 2566-10-02 at 21.37.37.png…]()
+
+![Screenshot 2566-10-02 at 21 40 10](https://github.com/phetpb631200/ProjectAndroidStudio/assets/104188069/d6991270-c3d6-4401-94dc-71d42bddda36)
