@@ -14,4 +14,3 @@ TemperatureGroup.java คือ Class เก็บข้อมูลกลุ่
 WindGroup.java คือ Class เก็บข้อมูลกลุ่มความแรงของลม มีหน้าที่เก็บข้อมูล และให้ Class พยากรณ์เรียกใช้
 
 
-![Screenshot 2566-10-02 at 21 40 10](https://github.com/phetpb631200/ProjectAndroidStudio/assets/104188069/d6991270-c3d6-4401-94dc-71d42bddda36)
